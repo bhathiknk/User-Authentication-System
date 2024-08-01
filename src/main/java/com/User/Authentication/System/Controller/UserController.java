@@ -27,4 +27,14 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PostMapping("/signin")
+    public ResponseEntity<?> signIn(@Validated @RequestBody User user) {
+        try {
+            String token = userService.authenticateUser(user);
+            return ResponseEntity.ok(token);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 }
